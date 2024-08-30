@@ -903,12 +903,12 @@ if __name__ == '__main__':
 
                      ]
                      
-    seed_values = [ 52] 
-    num_rows_list = [100000] 
+    seed_values = [ 52, 50, 45, 55, 60] 
+    num_rows_list = [10000, 100000] 
 
     rae_files = [
     './buffer/20k_TX_c_SC_AZ.csv',
-    #'./buffer/f200k_TX_c_SC_AZ.csv',
+    './buffer/f200k_TX_c_SC_AZ.csv',
     ]
 
     results = []
