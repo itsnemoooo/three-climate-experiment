@@ -1,0 +1,5 @@
+numpy
+pandas
+matplotlib
+eppy==0.5.63
+torch==1.10.0
