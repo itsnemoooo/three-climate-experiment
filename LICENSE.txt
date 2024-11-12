@@ -1,0 +1,33 @@
+
+Business Source License 1.1
+
+This Business Source License (the "License") applies to the Three Climate Experiment software (the "Licensed Work").
+
+Change Date
+The Change Date is November 12, 2027.
+
+Change License
+On the Change Date, the Licensed Work will be made available under the Apache License, Version 2.0.
+
+Licensed Work
+The Licensed Work is the software made available under this License, including any associated source code, documentation, or materials.
+
+Usage Grant
+Subject to the terms of this License, you are granted a limited, non-exclusive, non-transferable, royalty-free right to use, reproduce, display, and modify the Licensed Work, with the following condition:
+
+- Revenue Threshold: If your use of the Licensed Work generates more than $10,000 in revenue per year, you are required to obtain a commercial license from the Licensor.
+
+Conditions
+1. Redistribution: You may distribute the Licensed Work or modified versions of it only under this License, with the Change Date and Change License clearly stated.
+
+2. Modification: You may modify the Licensed Work under this License, but any modified version distributed must also apply this License and must indicate it is a modified version.
+
+3. Disclaimer of Warranty: The Licensed Work is provided on an "AS IS" basis, without warranties of any kind, express or implied, including but not limited to, any warranties of merchantability, fitness for a particular purpose, or non-infringement.
+
+4. Limitation of Liability: The Licensor shall not be liable for any damages arising out of or in connection with the use or inability to use the Licensed Work.
+
+Commercial License
+For use of the Licensed Work that exceeds the Revenue Threshold, or if you prefer not to be bound by the terms of this License, please contact the Licensor at natemcarey@gmail.com for a commercial license.
+
+Effective Date
+This License is effective as of November 12, 2024.
