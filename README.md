@@ -1,8 +1,8 @@
-# README for Three Climate Experiment Codebase
+# The Three Climate Experiment
 
 ## Overview
 
-This codebase implements a reinforcement learning (RL) framework for optimizing HVAC (Heating, Ventilation, and Air Conditioning) energy consumption in buildings using EnergyPlus simulations. The framework utilizes a Deep Q-Network (DQN) approach to train an agent that learns to make energy-efficient decisions based on environmental data.
+This codebase implements a reinforcement learning (RL) framework for optimizing HVAC (Heating, Ventilation, and Air Conditioning) energy consumption in buildings using EnergyPlus simulations. The framework utilizes a Deep Double Q-Network (DDQN) approach to train an agent that learns to make energy-efficient decisions based on environmental data. It has been extended to include a replay across experiments framework shown to make the agent more robust to climate variation.
 
 ## Directory Structure
 
@@ -85,6 +85,13 @@ The experiment parameters are defined in `parameters.txt`. Key parameters includ
 - **`src/callbacks.py`**: Implements callback functions that interact with EnergyPlus during simulation.
 - **`src/dqn.py`**: Defines the DQN agent, including methods for action selection and learning from experiences.
 - **`src/replay_buffer.py`**: Manages the storage and retrieval of experiences for training the agent.
+
+## Thesis
+
+For a summary of the research and methodologies used in this project, please refer to my thesis executive summary:
+
+[Download Thesis PDF](ExecutiveSummary.pdf)
+
 
 ## Debugging Tips
 

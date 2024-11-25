@@ -8,7 +8,7 @@ from src.trainer import DQNTrainer
 
 def main():
     # Read parameters
-    parameters = read_parameters_from_txt('/Users/nathancarey/Replay/parameters.txt')
+    parameters = read_parameters_from_txt('parameters.txt')
     
     # Ensure all necessary parameters are present
     required_keys = [
@@ -31,7 +31,7 @@ def main():
     }
     
     # Specify the weather file and epoch to evaluate
-    weather_data = './data/weather_data/ARIZONA.epw'  # Example
+    weather_data = 'data/weather_data/ARIZONA.epw'  # Example
     epoch = 19  # Example epoch
     
     agent = DQN(
@@ -55,7 +55,7 @@ def main():
     
     # Save evaluation results
     timestamp = pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')
-    filename = f'./data/final_results/evaluation_{timestamp}.csv'
+    filename = f'data/final_results/evaluation_{timestamp}.csv'
     EPLUS.energy_data_to_csv(filename)
     print(f"Evaluation data saved to {filename}")
 
