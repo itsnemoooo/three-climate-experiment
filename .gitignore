@@ -3,3 +3,4 @@ venv/
 NewVenv/
 data/final_results/
 data/*.csv
+out/
