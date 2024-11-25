@@ -90,9 +90,3 @@ The experiment parameters are defined in `parameters.txt`. Key parameters includ
 
 - If you encounter a `ModuleNotFoundError`, ensure that the `src` directory is included in the Python path.
 - For `KeyError` issues, check the state dictionary being passed to the agent and ensure all expected keys are present.
-
-## Conclusion
-
-This codebase provides a framework for optimizing HVAC energy consumption using reinforcement learning techniques. By following the setup and running instructions, you can experiment with different configurations and improve the energy efficiency of building systems.
-
-For further questions or contributions, please refer to the project's issue tracker or contact the maintainers.
