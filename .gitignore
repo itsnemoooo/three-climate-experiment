@@ -1,3 +1,5 @@
 OpenStudio-1.4.0
 venv/
 NewVenv/
+data/final_results/
+data/*.csv

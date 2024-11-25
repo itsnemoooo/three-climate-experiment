@@ -1,6 +1,6 @@
-osm_name_box: ./building_model/ITRC_2nd_6zone_OPEN.osm
+osm_name_box: building_model/ITRC_2nd_6zone_OPEN.osm
 weather_data: ./weather_data/USA_FL_Miami.Intl.AP.722020_TMY3.epw
-EPlus_file: ./OpenStudio-1.4.0/EnergyPlus
+EPlus_file: OpenStudio-1.4.0/EnergyPlus
 save_idf: run.idf
 timestep_per_hour: 12
 begin_month: 1

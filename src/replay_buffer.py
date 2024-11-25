@@ -8,11 +8,12 @@ from collections import deque
 import pandas as pd
 
 class ReplayBuffer:
-    def __init__(self, capacity):
+    def __init__(self, capacity, save_path):
         timestamp = pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')
         self.transition_count = 0  
         self.buffer = deque(maxlen=capacity)  
         self.capacity = capacity
+        self.save_path = save_path
 
     def add(self, state, action, reward, next_state, done):
         self.buffer.append((state, action, reward, next_state, done))

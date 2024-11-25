@@ -4,6 +4,8 @@ import sys
 import time
 import datetime
 import numpy as np
+import ctypes
+
 from src.utils import temp_c_to_f, temp_f_to_c
 
 def HVAC_action(action, temp):
@@ -277,8 +279,18 @@ def callback_function_DQN(state_argument, api, EPLUS, agent, replay_buffer, repl
         state_1 = [O1/100, W1, T_31/100, T_11/100, T_21/100, T_31/100, T_41/100, T_51/100, T_61/100, 
                    H_11/100, H_21/100, H_31/100, H_41/100, H_51/100, H_61/100] 
         action_1 = agent.take_action(state_1)
+        
+        HVAC_action_list = []
+        for HC_1 in [0,1]:
+            for HC_2 in [0,1]:
+                for HC_3 in [0,1]:
+                    for HC_4 in [0,1]:
+                        for HC_5 in [0,1]:
+                            for HC_6 in [0,1]:
+                                HVAC_action_list.append([HC_1,HC_2,HC_3,HC_4,HC_5,HC_6])
+        
         try:
-            action_map = parameters['HVAC_action_list'][action_1]
+            action_map = HVAC_action_list[action_1]
         except IndexError as e:
             print(f"IndexError: {e}")
             action_map = [0] * NUM_HVAC  # Default action
@@ -314,8 +326,8 @@ def callback_function_DQN(state_argument, api, EPLUS, agent, replay_buffer, repl
         signal_factor = parameters.get('signal_factor', 0.0)
         signal_loss = parameters.get('signal_loss', False)
         if 'signal_factor' in parameters and 'signal_loss' in parameters:
-            current_action = parameters['HVAC_action_list'][EPLUS.action_list[-1]]
-            last_action = parameters['HVAC_action_list'][EPLUS.action_list[-2]] if len(EPLUS.action_list) >=2 else current_action
+            current_action = HVAC_action_list[EPLUS.action_list[-1]]
+            last_action = HVAC_action_list[EPLUS.action_list[-2]] if len(EPLUS.action_list) >=2 else current_action
             change_action = np.array(current_action) ^ np.array(last_action)
             num_unstable = np.sum(change_action == 1)
             reward_signal = -signal_factor * num_unstable
@@ -356,5 +368,3 @@ def callback_function_DQN(state_argument, api, EPLUS, agent, replay_buffer, repl
         batch_size = parameters.get('batch_size', 32)
         if replay_buffer.size() > minimal_size:
             agent.update(replay_buffer, replay_buffer_2, batch_size)
-        
-

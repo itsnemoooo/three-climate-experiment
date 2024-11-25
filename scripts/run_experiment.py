@@ -1,29 +1,31 @@
 import os
-import pandas as pd
-import torch
+import sys
+import datetime
 import random
-import numpy as np
-
-import sympy
+import numbers
+import typing
+import inspect
 import getpass
 import cProfile
 import pstats
-import sys
-import os
+import ctypes
+import pandas as pd
+import torch
+import numpy as np
+import sympy
+
 sys.path.clear()
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Add the pyenergyplus directory to the Python path
 pyenergyplus_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../OpenStudio-1.4.0/EnergyPlus'))
 sys.path.append(pyenergyplus_path)
-# Optional: Verify the paths
-print("Updated sys.path:", sys.path)
 
-# Optional: Verify the paths
 from src.utils import read_parameters_from_txt
 from src.dqn import DQN
 from src.replay_buffer import ReplayBuffer
 from src.trainer import DQNTrainer
+
 
 
 def main():
@@ -50,32 +52,32 @@ def main():
     }
     
     climate_files = [
-        './data/weather_data/ARIZONA.epw',
-        './data/weather_data/CALIFORNIA.epw',
-        './data/weather_data/DUBAI.epw',
-        './data/weather_data/LDN.epw',
-        './data/weather_data/CAPETOWN.epw',
-        './data/weather_data/TEXAS.epw',
-        './data/weather_data/SINGAPORE.epw',
-        './data/weather_data/SOUTHCAROLINA.epw',
-        './data/weather_data/TOKYO.epw',
-        './data/weather_data/VANCOUVER.epw',
-        './data/weather_data/ARIZONA_modified.epw',
-        './data/weather_data/CALIFORNIA_modified.epw',
-        './data/weather_data/DUBAI_modified.epw',
-        './data/weather_data/LDN_modified.epw',
-        './data/weather_data/CAPETOWN_modified.epw',
-        './data/weather_data/SOUTHCAROLINA_modified.epw',
-        './data/weather_data/SINGAPORE_modified.epw',
-        './data/weather_data/TEXAS_modified.epw',
-        './data/weather_data/TOKYO_modified.epw',
-        './data/weather_data/VANCOUVER_modified.epw',
+        'data/weather-data/ARIZONA.epw',
+        # './data/weather_data/CALIFORNIA.epw',
+        # './data/weather_data/DUBAI.epw',
+        # './data/weather_data/LDN.epw',
+        # './data/weather_data/CAPETOWN.epw',
+        # './data/weather_data/TEXAS.epw',
+        # './data/weather_data/SINGAPORE.epw',
+        # './data/weather_data/SOUTHCAROLINA.epw',
+        # './data/weather_data/TOKYO.epw',
+        # './data/weather_data/VANCOUVER.epw',
+        # './data/weather_data/ARIZONA_modified.epw',
+        # './data/weather_data/CALIFORNIA_modified.epw',
+        # './data/weather_data/DUBAI_modified.epw',
+        # './data/weather_data/LDN_modified.epw',
+        # './data/weather_data/CAPETOWN_modified.epw',
+        # './data/weather_data/SOUTHCAROLINA_modified.epw',
+        # './data/weather_data/SINGAPORE_modified.epw',
+        # './data/weather_data/TEXAS_modified.epw',
+        # './data/weather_data/TOKYO_modified.epw',
+        # './data/weather_data/VANCOUVER_modified.epw',
     ]
     
     seed_values = [52]
     num_rows_list = [100000]
     rae_files = [
-        './data/weather_data/Buffer-example/20k_TX_c_SC_AZ.csv',
+        './data/buffer/20k_TX_c_SC_AZ.csv',
     ]
     
     results = []
@@ -105,14 +107,15 @@ def main():
                         epsilon_min=parameters['epsilon_min'],
                         epsilon_decay=parameters['epsilon_decay'],
                         target_update=parameters['target_update'],
-                        device=torch.device("mps") if torch.has_mps else torch.device("cpu")
+                        device = torch.device("mps") if torch.backends.mps.is_built() else torch.device("cpu")
                     )
                     
-                    replay_buffer = ReplayBuffer(capacity=parameters['buffer_size'])
-                    replay_buffer_2 = ReplayBuffer(capacity=num_rows)
+                    save_path_1 = './data/buffer/replay_buffer_1.csv'
+                    save_path_2 = './data/buffer/replay_buffer_2.csv'
+                    replay_buffer = ReplayBuffer(capacity=parameters['buffer_size'], save_path=save_path_1)
+                    replay_buffer_2 = ReplayBuffer(capacity=num_rows, save_path=save_path_2)
                     replay_buffer_2.load_from_csv(rae_file, num_rows=num_rows)
-                    
-                    trainer = DQNTrainer(agent, replay_buffer, replay_buffer_2, weather_data, parameters['save_idf'], parameters)
+                    trainer = DQNTrainer(agent, replay_buffer, replay_buffer_2, weather_data, 'run.idf', parameters)
                     trainer.setup_baseline()
                     epoch_results = trainer.train()
                     results_df = trainer.report_results()
